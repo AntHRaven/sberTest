@@ -49,7 +49,6 @@ public class JwtSecurityConfig
   @Autowired
   public JwtSecurityConfig(JwtTokenFilter jwtTokenFilter) {
     this.jwtTokenFilter = jwtTokenFilter;
-    //https://habr.com/ru/post/203318/ - все о секурити
     SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
   }
 
@@ -65,7 +64,6 @@ public class JwtSecurityConfig
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        //Доступ для всех пользователей
         .antMatchers(AUTH_WHITELIST).permitAll()
         .and()
         .exceptionHandling()

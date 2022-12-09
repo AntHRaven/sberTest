@@ -35,8 +35,6 @@ public class JwtTokenUtil
     return new ObjectMapper();
   }
 
-  //получение логина пользователя из jwt токена
-  //Claims - это тело токена.
   public String getUsernameFromToken(String token) {
     String subject = getClaimFromToken(token, Claims::getSubject);
     JsonNode subjectJSON = null;
@@ -49,37 +47,6 @@ public class JwtTokenUtil
       return subjectJSON.get("username").asText();
     } else {
       return null;
-    }
-  }
-
-  //получение id пользователя из jwt токена
-  public String getUserIdFromToken(String token) {
-    String subject = getClaimFromToken(token, Claims::getSubject);
-    JsonNode subjectJSON = null;
-    try {
-      subjectJSON = objectMapper.readTree(subject);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    if (subjectJSON != null) {
-      return subjectJSON.get("user_id").asText();
-    } else {
-      return "";
-    }
-  }
-
-  public String getUserRoleFromToken(String token) {
-    String subject = getClaimFromToken(token, Claims::getSubject);
-    JsonNode subjectJSON = null;
-    try {
-      subjectJSON = objectMapper.readTree(subject);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    if (subjectJSON != null) {
-      return subjectJSON.get("user_role").asText();
-    } else {
-      return "";
     }
   }
 
