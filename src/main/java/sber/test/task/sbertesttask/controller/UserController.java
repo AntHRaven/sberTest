@@ -64,7 +64,7 @@ public class UserController {
         try {
             return ResponseEntity.ok().body(testService.test1());
         } catch (AccessDeniedException e) {
-            return forbidden();
+            return forbidden(e);
         }
     }
 
@@ -73,7 +73,7 @@ public class UserController {
         try {
             return ResponseEntity.ok().body(testService.test2());
         } catch (AccessDeniedException e) {
-            return forbidden();
+            return forbidden(e);
         }
     }
 
@@ -82,11 +82,11 @@ public class UserController {
         try {
             return ResponseEntity.ok().body(testService.test3());
         } catch (AccessDeniedException e) {
-            return forbidden();
+            return forbidden(e);
         }
     }
 
-    private ResponseEntity<String> forbidden() {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Отказано в доступе");
+    private ResponseEntity<String> forbidden(AccessDeniedException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 }
